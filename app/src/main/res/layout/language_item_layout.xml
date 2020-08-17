@@ -3,13 +3,14 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/design_default_color_surface"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:cardBackgroundColor="@android:color/holo_orange_dark"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#FFFFFF"
         android:layout_marginVertical="5dp"
         app:cardCornerRadius="18dp">
 
@@ -18,26 +19,45 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_baseline_flag_24"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:orientation="vertical">
+                android:layout_marginStart="15dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/order_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:textColor="#7A7A7A"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
                     android:text="1" />
                 <TextView
                     android:id="@+id/language_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:textColor="#7A7A7A"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
                     android:text="Bahasa" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/delete_button"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="30dp"
+                    android:padding="8dp"
+                    android:backgroundTint="#C6C6C6"
+                    android:drawableEnd="@drawable/ic_baseline_clear_24" />
 
             </LinearLayout>
 
@@ -48,3 +68,8 @@
     </com.google.android.material.card.MaterialCardView>
 
 </FrameLayout>
+
+<!--<ImageView-->
+<!--android:layout_width="50dp"-->
+<!--android:layout_height="50dp"-->
+<!--android:src="@drawable/ic_baseline_flag_24"/>-->

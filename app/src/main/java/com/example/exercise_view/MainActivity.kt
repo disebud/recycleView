@@ -3,26 +3,50 @@ package com.example.exercise_view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.exercise_view.viewmodel.LanguageViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),RecyclerViewClickListener{
 
-    var languageList = mutableListOf<String>("Java","Python","C","Swift","PHP","Javascript","Dart","C#","Objective C","Node Js")
-    lateinit var languageRecycleAdapter: LanguageRecycleAdapter
+    val languageViewModel by viewModels<LanguageViewModel>()
+    private lateinit var adapter: LanguageRecycleAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         language_recycleView.layoutManager = LinearLayoutManager(this)
-        languageRecycleAdapter = LanguageRecycleAdapter(languageList)
-        language_recycleView.adapter = languageRecycleAdapter
+        adapter = LanguageRecycleAdapter(languageViewModel.languagesLiveData.value!!)
+        adapter.listener = this
+        language_recycleView.adapter = adapter
+
+        languageViewModel
+            .languagesLiveData.observe(this, Observer {
+                (language_recycleView.adapter as LanguageRecycleAdapter).notifyDataSetChanged()
+        })
+
     }
 
-    fun addLanguage(view:View){
-        val languageName:String = language_name_input.text.toString()
-        languageList.add(languageName)
-        language_recycleView.adapter?.notifyDataSetChanged()
+    fun handleAddLanguage(view: View) {
+        val languageName = language_name_input.text.toString()
+
+        if (languageName.isEmpty()) {
+            Toast.makeText(this, "Input cannot be empty!", Toast.LENGTH_SHORT).show()
+        } else {
+            languageViewModel.addLanguage(languageName)
+        }
+    }
+
+    override fun onItemClicked(view: View, language: String) {
+        Toast.makeText(this, "$language clicked!", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onItemClicked(view: View, index: Int, language: String) {
+        Toast.makeText(this, "$language deleted!", Toast.LENGTH_SHORT).show()
+        languageViewModel.removeLanguage(index)
     }
 }
